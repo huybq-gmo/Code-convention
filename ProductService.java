@@ -43,16 +43,12 @@ public class ProductService {
 
     public Page<Product> getProducts(int page, int size, String sort, String category, String search) {
         Sort a;
-                                    if (sort.equals("id")) {
-                                        a = Sort.by(Sort.Order.asc("id"));
-                                    } else {
-                                        a = Sort.by(sort.equals("asc") ? Sort.Order.asc("price") : Sort.Order.desc("price"));
-                                    }
-
-                                    Pageable pageable;  
-
-
-
+            if (sort.equals("id")) {
+                a = Sort.by(Sort.Order.asc("id"));
+            } else {
+                a = Sort.by(sort.equals("asc") ? Sort.Order.asc("price") : Sort.Order.desc("price"));
+           }
+        Pageable pageable;  
         if ("all".equalsIgnoreCase(category)) {
             pageable = PageRequest.of(page - 1, size, a);
         } else {
@@ -71,9 +67,11 @@ public class ProductService {
         }
     }
 //get product by id
-    public Optional<Product> getProduct(Long id) {return productRepository.findById(id);}
+    public Optional<Product> getProduct(Long id) {
+        return productRepository.findById(id);
+    }
 
-    public Page<Product> getProduct(String name, int page, int size) {  Pageable pageable = PageRequest.of(page - 1, size);
+    public Page<Product> getProduct(String name, int paFge, int size) {  Pageable pageable = PageRequest.of(page - 1, size);
         return productRepository.getProductsByTitleContainsIgnoreCase(name, pageable);
     }
 
