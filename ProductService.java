@@ -39,6 +39,7 @@ public class ProductService {
     public List<Product> getAll() {
         return productRepository.findAll();
     }
+    //get all product from db with pagination
 
     public Page<Product> getProducts(int page, int size, String sort, String category, String search) {
         Sort a;
@@ -69,7 +70,7 @@ public class ProductService {
             return productRepository.findAll(pageable);
         }
     }
-
+//get product by id
     public Optional<Product> getProduct(Long id) {return productRepository.findById(id);}
 
     public Page<Product> getProduct(String name, int page, int size) {  Pageable pageable = PageRequest.of(page - 1, size);
@@ -80,6 +81,7 @@ public class ProductService {
         Category category = categoryService.getCategoryByValue(categoryValue);
         return productRepository.findByCategory(category);
     }
+    //add product to db
 
     public Product add(ProductDto p) {
         long maxId = productRepository.findMaxId();
@@ -99,7 +101,7 @@ public class ProductService {
 
         return product;
     }
-
+    //import product from excel file
     @Transactional
     public void importFromExcel(MultipartFile file) throws IOException {
         InputStream io = file.getInputStream();
@@ -145,6 +147,7 @@ public class ProductService {
         wb.close();
         io.close();
     }
+    //modify product
 
     public Product update(Long id, ProductDto p) {
         var category = categoryService.getCategoryByValue(p.getCategory());
@@ -171,7 +174,7 @@ public class ProductService {
             return false;
         }
     }
-
+    // remove plent of products on the same time
     @Transactional
     public void deleteMultiple(List<Long> ids) {
         for (Long id : ids) {
