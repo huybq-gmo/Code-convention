@@ -92,6 +92,15 @@ public class ProductService {
 
         return product;
     }
+    //get product by name
+    public Page<Product> getProduct(String name, int page, int size) {  Pageable pageable = PageRequest.of(page - 1, size);
+        return productRepository.getProductsByTitleContainsIgnoreCase(name, pageable);
+    }
+    //get product by category
+    public List<Product> getProducts(String categoryValue) {
+        Category category = categoryService.getCategoryByValue(categoryValue);
+        return productRepository.findByCategory(category);
+    }
     //import product from excel file
     @Transactional
     // public void importFromExcel(MultipartFile file)
