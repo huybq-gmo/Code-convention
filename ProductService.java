@@ -36,13 +36,17 @@ public class ProductService {
     private final OrderItemRepository orderItemRepository;
     private final OrderRepository orderRepository;
 
-    public List<Product> getAll() {
+    // public List<Product> getAll() {
+    // Name of method should have clear meaning
+    public List<Product> getProducts() {
         return productRepository.findAll();
     }
     //get all product from db with pagination
 
     public Page<Product> getProducts(int page, int size, String sort, String category, String search) {
-        Sort a;
+        // Sort a;
+        // Name of variables should have meaning
+        Sort sorting;
             if (sort.equals("id")) {
                 a = Sort.by(Sort.Order.asc("id"));
             } else {
@@ -67,7 +71,10 @@ public class ProductService {
         }
     }
 //get product by id
-    public Optional<Product> getProduct(Long id) {
+// public Optional<Product> getProduct(Long id) {
+// this method needs more info to understand the purpose of the function
+    public Optional<Product> getProductById(Long id) {
+        
         return productRepository.findById(id);
     }
 
@@ -101,7 +108,9 @@ public class ProductService {
     }
     //import product from excel file
     @Transactional
-    public void importFromExcel(MultipartFile file) throws IOException {
+    // public void importFromExcel(MultipartFile file)
+    // this method needs more info to understand the purpose of the function
+    public void importProductFromExcel(MultipartFile file) throws IOException {
         InputStream io = file.getInputStream();
         Workbook wb = WorkbookFactory.create(io);
         Sheet sheet = wb.getSheetAt(0);
@@ -173,6 +182,7 @@ public class ProductService {
         }
     }
     // remove plent of products on the same time
+    // this method needs more info to understand what are the function doing
     @Transactional
     public void deleteMultiple(List<Long> ids) {
         for (Long id : ids) {
