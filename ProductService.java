@@ -35,13 +35,7 @@ public class ProductService {
     private final CategoryService categoryService;
     private final OrderItemRepository orderItemRepository;
     private final OrderRepository orderRepository;
-
-    // public List<Product> getAll() {
-    // Name of method should have clear meaning
-    public List<Product> getProducts() {
-        return productRepository.findAll();
-    }
-    //get all product from db with pagination
+// adding comment to create branch
 
     public Page<Product> getProducts(int page, int size, String sort, String category, String search) {
         // Sort a;
@@ -78,14 +72,6 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public Page<Product> getProduct(String name, int paFge, int size) {  Pageable pageable = PageRequest.of(page - 1, size);
-        return productRepository.getProductsByTitleContainsIgnoreCase(name, pageable);
-    }
-
-    public List<Product> getProducts(String categoryValue) {
-        Category category = categoryService.getCategoryByValue(categoryValue);
-        return productRepository.findByCategory(category);
-    }
     //add product to db
 
     public Product add(ProductDto p) {
